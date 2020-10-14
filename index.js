@@ -75,4 +75,24 @@ function start() {
                     break;
             }
         });
-}
+};
+
+// ================================================== View All Employees =======================================================================================================================
+function viewAllEmployees() {
+    let query = "SELECT e.id, e.first_name, e.last_name, employee_role.title, department.department_name, employee_role.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager";
+    query += " FROM employees AS e LEFT JOIN employees AS m ON e.manager_id = m.id LEFT JOIN employee_role ON e.role_id= employee_role.id";
+    query += " LEFT JOIN department ON employee_role.department_id= department.id;";
+    connection.query(query, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        console.table(result);
+        start();
+
+    });
+
+};
+// ====================================================== View All Employees End ==================================================================================================================
+
+
+
