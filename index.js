@@ -138,13 +138,13 @@ function viewByDepartment() {
 function viewByManager() {
     let query = "SELECT e.id, e.first_name, e.last_name, employee_role.title, employee_role.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager";
     query += " FROM employees AS e LEFT JOIN employees AS m ON e.manager_id = m.id"
-    query +=" LEFT JOIN employee_role ON e.role_id= employee_role.id;"
+    query += " LEFT JOIN employee_role ON e.role_id= employee_role.id;"
     connection.query(query, (err, results) => {
         if (err) {
             throw err;
         }
         const listManagersColumn = results.map((row) => row.manager);
-        const listMangagersNames =listManagersColumn.filter((name) => {return name!=null});
+        const listMangagersNames = listManagersColumn.filter((name) => { return name != null });
 
         return inquirer
             .prompt([
@@ -166,7 +166,7 @@ function viewByManager() {
                         throw err;
                     }
                     console.table(result);
-                    // start();
+                    start();
 
                 });
 
@@ -174,3 +174,88 @@ function viewByManager() {
     });
 };
 // ===================================================================================================== View Employees by Manager End =========================================================================
+
+// ==================================================================================================== Add Employee to database ================================================================================
+
+function addEmployee() {
+
+    return connection.query("SELECT * FROM employee_role;", (err, results) => {
+        if (err) {
+            throw err;
+        }
+        const listRoles = results.map((row) => row.title);
+        let queryManagers = "SELECT e.id, e.first_name, e.last_name, employee_role.title, employee_role.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager";
+        queryManagers += " FROM employees AS e LEFT JOIN employees AS m ON e.manager_id = m.id"
+        queryManagers += " LEFT JOIN employee_role ON e.role_id= employee_role.id;"
+
+        connection.query(queryManagers, (err, resultsM) => {
+            if (err) {
+                throw err;
+            }
+            const listManagersColumn = resultsM.map((row) => row.manager);
+            const listMangagersNames = listManagersColumn.filter((name) => { return name != null });
+
+            console.log(listMangagersNames);
+            console.log(listRoles);
+
+            return inquirer
+                .prompt([
+                    {
+                        name: "firstName",
+                        type: "input",
+                        message: "What is the employee's first name?",
+                    },
+
+                    {
+                        name: "lastName",
+                        type: "input",
+                        message: "What is the employee's last name?",
+                    },
+
+                    {
+                        name: "rolechoice",
+                        type: "list",
+                        message: "What is the employee's role?",
+                        choices: listRoles,
+                    },
+
+                    {
+                        name: "managerchoice",
+                        type: "list",
+                        message: "Who is the employee's manager?",
+                        choices: listMangagersNames,
+                    },
+
+
+                ])
+                .then((answer) => {
+                    console.log(answer.firstName);
+                    console.log(answer.lastName);
+                    console.log(answer.rolechoice);
+                    console.log(answer.managerchoice);
+                    console.log("Success!")
+                    // when finished prompting, insert a new item into the db with that info
+                    // return connection.query(
+                    //     "INSERT INTO auctions SET ?",
+                    //     {
+                    //         item_name: answer.item,
+                    //         category: answer.category,
+                    //         starting_bid: answer.startingBid || 0,
+                    //         highest_bid: answer.startingBid || 0,
+                    //     },
+                    //     (err) => {
+                    //         if (err) {
+                    //             throw err;
+                    //         }
+                    //         console.log("Your auction was created successfully!");
+                    //         // re-prompt the user for if they want to bid or post
+                    //         return start();
+                    //     }
+                    // );
+                });
+        });
+
+    });
+
+};
+// =============================================================================================================== Add employee End =====================================================================================================
