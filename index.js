@@ -144,35 +144,33 @@ function viewByManager() {
             throw err;
         }
         const listManagersColumn = results.map((row) => row.manager);
-        console.log(listManagersColumn);
         const listMangagersNames =listManagersColumn.filter((name) => {return name!=null});
 
-        console.log(listMangagersNames);
-        // return inquirer
-        //     .prompt([
-        //         {
-        //             name: "choice",
-        //             type: "list",
-        //             message: "Under which manager would you like to see corresponding employees?",
-        //             choices: listManagersColumn,
-        //         },
+        return inquirer
+            .prompt([
+                {
+                    name: "choice",
+                    type: "list",
+                    message: "Under which manager would you like to see corresponding employees?",
+                    choices: listMangagersNames,
+                },
 
-        //     ])
-        //     .then((answer) => {
-        //         console.log(listManagersColumn);
-        //         let query = "SELECT department.department_name AS department, e.id, e.first_name, e.last_name, employee_role.title, employee_role.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager";
-        //         query += " FROM employees AS e LEFT JOIN employees AS m ON e.manager_id = m.id LEFT JOIN employee_role ON e.role_id= employee_role.id";
-        //         query += " LEFT JOIN department ON employee_role.department_id= department.id WHERE department_name = ?;";
-        //         connection.query(query, [answer.choice], (err, result) => {
-        //             if (err) {
-        //                 throw err;
-        //             }
-        //             console.table(result);
-        //             start();
+            ])
+            .then((answer) => {
+                console.log(answer);
+                // let query = "SELECT department.department_name AS department, e.id, e.first_name, e.last_name, employee_role.title, employee_role.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager";
+                // query += " FROM employees AS e LEFT JOIN employees AS m ON e.manager_id = m.id LEFT JOIN employee_role ON e.role_id= employee_role.id";
+                // query += " LEFT JOIN department ON employee_role.department_id= department.id WHERE department_name = ?;";
+                // connection.query(query, [answer.choice], (err, result) => {
+                //     if (err) {
+                //         throw err;
+                //     }
+                //     console.table(result);
+                //     start();
 
-        //         });
+                // });
 
-        //     });
+            });
     });
 };
 // ===================================================================================================== View Employees by Manager End =========================================================================
