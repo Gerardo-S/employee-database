@@ -9,5 +9,5 @@ Install inquirer, MySQL, and console.table npm packages in order to have a full 
 <img src="#" alt="gif of Employee Database">
 
 Link to Repo:
-<a href="#"></a><br>
+<a href="https://github.com/Gerardo-S/employee-database">https://github.com/Gerardo-S/employee-database</a><br>
 <a href="#">Click here for a video walk through</a><br>
