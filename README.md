@@ -6,8 +6,8 @@ This application was constructed using node, inquirer, and MySQL to help busines
 Install inquirer, MySQL, and console.table npm packages in order to have a full functionality. Run application in terminal using ````node index.js```` and answer prompt questions to view or modify employee database. 
 
 ### Short Demonstration of Application
-<img src="#" alt="gif of Employee Database">
+<img src="Assets\Employee-Database.gif" alt="gif of Employee Database">
 
 Link to Repo:
 <a href="https://github.com/Gerardo-S/employee-database">https://github.com/Gerardo-S/employee-database</a><br>
-<a href="#">Click here for a video walk through</a><br>
+<a href="https://drive.google.com/file/d/15R6zjc9BH5DyRF2Eb9lqQuHfyOmE6EgE/view">Click here for a video walk through</a><br>

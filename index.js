@@ -18,7 +18,6 @@ var connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
-    console.log("connected!");
     start();
 });
 
@@ -29,7 +28,7 @@ function start() {
             type: "list",
             message: "What would you like to do?",
             choices: [
-                // Done
+                
                 "View All Employees",
 
                 "View All Employees By Department",
@@ -157,7 +156,6 @@ function viewByManager() {
 
             ])
             .then((answer) => {
-                console.log(answer);
                 let query = "SELECT  CONCAT(m.first_name, ' ', m.last_name) AS manager, e.id, e.first_name, e.last_name, employee_role.title, department.department_name AS department, employee_role.salary";
                 query += " FROM employees AS e LEFT JOIN employees AS m ON e.manager_id = m.id LEFT JOIN employee_role ON e.role_id= employee_role.id";
                 query += " LEFT JOIN department ON employee_role.department_id= department.id WHERE CONCAT(m.first_name, ' ', m.last_name) = ?;";
@@ -175,6 +173,9 @@ function viewByManager() {
 };
 // ===================================================================================================== View Employees by Manager End =========================================================================
 
+
+
+// Code below is work in progress 
 // ==================================================================================================== Add Employee to database ================================================================================
 
 function addEmployee() {
@@ -234,22 +235,56 @@ function addEmployee() {
                     console.log(answer.rolechoice);
                     console.log(answer.managerchoice);
                     console.log("Success!")
+                    // for the following lines I am trying to find a way to corelate user input for employee role to the role_id in order to update the table
+                    // At first I was going to use if statements but I figured it might be easier to write a for loop. With a for loop if additional roles are added there would not be 
+                    // a need to update the code. 
+                    // const role_id = 
+
+                    // for (let i = 0; i < array.length; i++) {
+                    //     const element = array[i];
+                        
+                    // }
+
+                    // if(answer.rolechoice == "Sales Lead"){
+                    //     return answer.rolechoice = 1;
+                    // }
+                    // else if(answer.rolechoice == "Salesperson"){
+                    //     return answer.rolechoice = 2;
+                    // }
+                    // else if(answer.rolechoice == "Lead Engineer"){
+                    //     return answer.rolechoice = 3;
+                    // }
+                    // else if(answer.rolechoice == "Software Engineer"){
+                    //     return answer.rolechoice = 4;
+                    // }
+                    // else if(answer.rolechoice == "Account Manager"){
+                    //     return answer.rolechoice = 5;
+                    // }
+                    // else if(answer.rolechoice == "Account Manager"){
+                    //     return answer.rolechoice = 5;
+                    // }
                     // when finished prompting, insert a new item into the db with that info
-                    // return connection.query(
-                    //     "INSERT INTO auctions SET ?",
+                    // Here I was trying to update the respective tables according to user input 
+                    // let updateEmployeeQuery= "INSERT INTO employees(first_name, last_name) SET ?;"
+                    // connection.query(
+
+                    //     updateEmployeeQuery,
+
+                    //     // "INSERT INTO auctions SET ?",
+
                     //     {
-                    //         item_name: answer.item,
-                    //         category: answer.category,
-                    //         starting_bid: answer.startingBid || 0,
-                    //         highest_bid: answer.startingBid || 0,
+                    //         first_name: answer.firstName,
+                    //         last_name: answer.lastName,
+                    //         role_id: 
+                        
                     //     },
                     //     (err) => {
                     //         if (err) {
                     //             throw err;
                     //         }
-                    //         console.log("Your auction was created successfully!");
-                    //         // re-prompt the user for if they want to bid or post
-                    //         return start();
+                    //         console.log("successfully added employee!");
+                            
+                    //         // return start();
                     //     }
                     // );
                 });
